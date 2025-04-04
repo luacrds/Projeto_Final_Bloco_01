@@ -21,7 +21,7 @@ Este projeto é o **desafio final do Bloco 1** do Bootcamp da **Generation Brasi
 
 1. Clone o repositório
 2. Abra em sua IDE (Eclipse, STS, VSCode, etc)
-3. Execute a classe `MenuCinema.java`
+3. Execute a classe `Menu.java`
 4. Interaja com o menu via console
 
 ## 👩‍💻 Desenvolvido por
