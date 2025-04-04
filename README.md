@@ -26,6 +26,7 @@ Este projeto é o **desafio final do Bloco 1** do Bootcamp da **Generation Brasi
 
 ## 👩‍💻 Desenvolvido por
 Luana Cardoso da Silva
+
 Bootcamp Generation Brasil  
 Bloco 1 - Programação em Java  
 Turma: 81
