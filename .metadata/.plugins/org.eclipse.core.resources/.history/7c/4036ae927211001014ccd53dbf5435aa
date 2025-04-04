@@ -1,0 +1,108 @@
+package menu;
+
+import java.util.InputMismatchException;
+import java.util.Scanner;
+
+import controller.IngressoController;
+import model.Ingresso;
+
+public class Menu {
+
+    static Scanner leia = new Scanner(System.in);
+
+    public static void main(String[] args) {
+
+        IngressoController ingressos = new IngressoController();
+
+        int opcao, numero, quantidade;
+        String filme;
+        double preco;
+
+        while (true) {
+
+            System.out.println("*****************************************************");
+            System.out.println("                                                     ");
+            System.out.println("               OLDFILMES CINE                        ");
+            System.out.println("                                                     ");
+            System.out.println("*****************************************************");
+            System.out.println("                                                     ");
+            System.out.println("            1 - Listar todos os ingressos            ");
+            System.out.println("            2 - Buscar ingresso por número           ");
+            System.out.println("            3 - Cadastrar novo ingresso              ");
+            System.out.println("            4 - Atualizar ingresso                   ");
+            System.out.println("            5 - Deletar ingresso                     ");
+            System.out.println("            6 - Sair                                 ");
+            System.out.println("                                                     ");
+            System.out.println("*****************************************************");
+            System.out.print("Entre com a opção desejada: ");
+
+            try {
+                opcao = leia.nextInt();
+            } catch (InputMismatchException e) {
+                System.out.println("\nDigite valores inteiros!");
+                leia.nextLine();
+                opcao = 0;
+            }
+
+            switch (opcao) {
+                case 1:
+                    ingressos.listarTodos();
+                    break;
+                case 2:
+                    System.out.print("\nDigite o número do ingresso: ");
+                    numero = leia.nextInt();
+                    ingressos.buscarPorNumero(numero);
+                    break;
+                case 3:
+                    System.out.print("\nDigite o nome do filme: ");
+                    leia.skip("\\R?");
+                    filme = leia.nextLine();
+
+                    System.out.print("Digite o preço do ingresso: ");
+                    preco = leia.nextDouble();
+
+                    System.out.print("Digite a quantidade disponível: ");
+                    quantidade = leia.nextInt();
+
+                    ingressos.cadastrar(new Ingresso(ingressos.gerarNumero(), filme, preco, quantidade));
+                    break;
+                case 4:
+                    System.out.print("\nDigite o número do ingresso: ");
+                    numero = leia.nextInt();
+
+                    System.out.print("Digite o nome do filme: ");
+                    leia.skip("\\R?");
+                    filme = leia.nextLine();
+
+                    System.out.print("Digite o preço do ingresso: ");
+                    preco = leia.nextDouble();
+
+                    System.out.print("Digite a quantidade disponível: ");
+                    quantidade = leia.nextInt();
+
+                    ingressos.atualizar(new Ingresso(numero, filme, preco, quantidade));
+                    break;
+                case 5:
+                    System.out.print("\nDigite o número do ingresso: ");
+                    numero = leia.nextInt();
+                    ingressos.deletar(numero);
+                    break;
+                case 6:
+                    System.out.println("\nObrigado por visitar o OldFilmes Cine!");
+                    sobre();
+                    System.exit(0);
+                    break;
+                default:
+                    System.out.println("\nOpção inválida!");
+                    break;
+            }
+        }
+    }
+
+    public static void sobre() {
+        System.out.println("\n*********************************************************");
+        System.out.println("Projeto Desenvolvido por: Luana Cardoso da Silva");
+        System.out.println("OldFilmes Cine - Sua experiência nostálgica de cinema");
+        System.out.println("*********************************************************");
+    }
+}

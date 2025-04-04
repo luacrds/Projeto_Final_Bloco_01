@@ -1,0 +1,92 @@
+package controller;
+
+import java.util.ArrayList;
+
+import model.Ingresso;
+import repository.IngressoRepository;
+
+public class IngressoController implements IngressoRepository {
+
+    private ArrayList<Ingresso> listaIngressos = new ArrayList<>();
+    int numero = 0;
+
+    @Override
+    public void listarTodos() {
+        for (var ingresso : listaIngressos) {
+            ingresso.visualizar();
+        }
+    }
+
+    @Override
+    public void buscarPorNumero(int numero) {
+        var ingresso = buscarNaCollection(numero);
+
+        if (ingresso != null)
+            ingresso.visualizar();
+        else
+            System.out.println("\nO ingresso número: " + numero + " não foi encontrado!");
+    }
+
+    @Override
+    public void cadastrar(Ingresso ingresso) {
+        listaIngressos.add(ingresso);
+        System.out.println("\nO ingresso foi criado com sucesso!");
+    }
+
+    @Override
+    public void atualizar(Ingresso ingresso) {
+        var buscaIngresso = buscarNaCollection(ingresso.getNumero());
+
+        if (buscaIngresso != null) {
+            listaIngressos.set(listaIngressos.indexOf(buscaIngresso), ingresso);
+            System.out.println("\nO ingresso número: " + ingresso.getNumero() + " foi atualizado com sucesso!");
+        } else
+            System.out.println("\nO ingresso número: " + ingresso.getNumero() + " não foi encontrado!");
+    }
+
+    @Override
+    public void deletar(int numero) {
+        var ingresso = buscarNaCollection(numero);
+
+        if (ingresso != null) {
+            if (listaIngressos.remove(ingresso))
+                System.out.println("\nO ingresso número: " + numero + " foi deletado com sucesso!");
+        } else
+            System.out.println("\nO ingresso número: " + numero + " não foi encontrado!");
+    }
+
+    public int gerarNumero() {
+        return ++numero;
+    }
+
+    public Ingresso buscarNaCollection(int numero) {
+        for (var ingresso : listaIngressos) {
+            if (ingresso.getNumero() == numero)
+                return ingresso;
+        }
+        return null;
+    }
+
+	@Override
+	public void procurarPorId(int id) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void cadastrar(Object ingresso) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void atualizar(int id, Object ingresso) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	public void comprar(int numeroIngresso, int qtdIngresso) {
+		// TODO Auto-generated method stub
+		
+	}
+}

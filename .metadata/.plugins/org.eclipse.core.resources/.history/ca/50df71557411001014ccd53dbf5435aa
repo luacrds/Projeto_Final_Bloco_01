@@ -1,0 +1,22 @@
+package model;
+
+public class Ingresso extends Produto {
+
+    public Ingresso(int numero, String nome, double preco, int quantidade) {
+        super(numero, nome, preco, quantidade);
+    }
+
+    @Override
+    public void visualizar() {
+        System.out.println("\n================= DADOS DO INGRESSO =================");
+        System.out.println("Número: " + this.getNumero());
+        System.out.println("Filme: " + this.getNome());
+        System.out.println("Preço: R$ " + String.format("%.2f", this.getPreco()));
+        System.out.println("Quantidade disponível: " + this.getQuantidade());
+    }
+
+	private String getNumero() {
+		
+		return null;
+	}
+}

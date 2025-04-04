@@ -2,40 +2,28 @@ package model;
 
 public abstract class Produto {
 
-    private int id;
+    private int numero;
     private String nome;
     private double preco;
     private int quantidade;
 
-    public Produto(int id, String nome, double preco, int quantidade) {
-        this.id = id;
+    public Produto(int numero, String nome, double preco, int quantidade) {
+        this.numero = numero;
         this.nome = nome;
         this.preco = preco;
         this.quantidade = quantidade;
     }
 
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
+    public int getNumero() {
+        return numero;
     }
 
     public String getNome() {
         return nome;
     }
 
-    public void setNome(String nome) {
-        this.nome = nome;
-    }
-
     public double getPreco() {
         return preco;
-    }
-
-    public void setPreco(double preco) {
-        this.preco = preco;
     }
 
     public int getQuantidade() {
@@ -47,9 +35,9 @@ public abstract class Produto {
     }
 
     public void visualizar() {
-        System.out.println("ID: " + this.id);
-        System.out.println("Filme: " + this.nome);
-        System.out.println("Preço: R$ " + this.preco);
-        System.out.println("Quantidade disponível: " + this.quantidade);
+        System.out.println("Número: " + numero);
+        System.out.println("Nome: " + nome);
+        System.out.println("Preço: R$" + preco);
+        System.out.println("Quantidade disponível: " + quantidade);
     }
 }

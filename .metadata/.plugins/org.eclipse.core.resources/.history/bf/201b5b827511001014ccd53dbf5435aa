@@ -1,0 +1,56 @@
+package controller;
+
+import java.util.ArrayList;
+
+import model.Combo;
+import repository.ComboRepository;
+
+public class ComboController implements ComboRepository {
+
+    private ArrayList<Combo> listaCombos = new ArrayList<>();
+    private int numero = 0;
+
+    public int gerarNumero() {
+        return ++numero;
+    }
+
+    @Override
+    public void listarTodos() {
+        for (var combo : listaCombos) {
+            combo.visualizar();
+        }
+    }
+
+    @Override
+    public void buscarPorNumero(int numero) {
+        var combo = buscarNaCollection(numero);
+        if (combo != null)
+            combo.visualizar();
+        else
+            System.out.println("\nCombo não encontrado.");
+    }
+
+    @Override
+    public void cadastrar(Combo combo) {
+        listaCombos.add(combo);
+    }
+
+    @Override
+    public void comprar(int numero, int quantidade) {
+        var combo = buscarNaCollection(numero);
+        if (combo != null && combo.getQuantidade() >= quantidade) {
+            combo.setQuantidade(combo.getQuantidade() - quantidade);
+            System.out.println("\nCompra realizada com sucesso!");
+        } else {
+            System.out.println("\nCombo não encontrado ou quantidade insuficiente.");
+        }
+    }
+
+    private Combo buscarNaCollection(int numero) {
+        for (var combo : listaCombos) {
+            if (combo.getNumero() == numero)
+                return combo;
+        }
+        return null;
+    }
+}

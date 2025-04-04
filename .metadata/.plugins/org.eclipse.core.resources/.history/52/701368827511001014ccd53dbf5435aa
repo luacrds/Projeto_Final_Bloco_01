@@ -1,0 +1,86 @@
+package controller;
+
+import java.util.ArrayList;
+
+import model.Ingresso;
+import repository.IngressoRepository;
+
+public class IngressoController implements IngressoRepository {
+
+    private ArrayList<Ingresso> listaIngressos = new ArrayList<>();
+    private int numero = 0;
+
+    public int gerarNumero() {
+        return ++numero;
+    }
+
+    @Override
+    public void listarTodos() {
+        for (var ingresso : listaIngressos) {
+            ingresso.visualizar();
+        }
+    }
+
+    @Override
+    public void buscarPorNumero(int numero) {
+        var ingresso = buscarNaCollection(numero);
+        if (ingresso != null)
+            ingresso.visualizar();
+        else
+            System.out.println("\nIngresso não encontrado.");
+    }
+
+    @Override
+    public void cadastrar(Ingresso ingresso) {
+        listaIngressos.add(ingresso);
+    }
+
+    @Override
+    public void comprar(int numero, int quantidade) {
+        var ingresso = buscarNaCollection(numero);
+        if (ingresso != null && ingresso.getQuantidade() >= quantidade) {
+            ingresso.setQuantidade(ingresso.getQuantidade() - quantidade);
+            System.out.println("\nCompra realizada com sucesso!");
+        } else {
+            System.out.println("\nIngresso não encontrado ou quantidade insuficiente.");
+        }
+    }
+
+    private Ingresso buscarNaCollection(int numero) {
+        for (var ingresso : listaIngressos) {
+            if (ingresso.getNumero() == numero)
+                return ingresso;
+        }
+        return null;
+    }
+
+	@Override
+	public void procurarPorId(int id) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void cadastrar(Object ingresso) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void atualizar(int id, Object ingresso) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void deletar(int id) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void atualizar(Ingresso ingresso) {
+		// TODO Auto-generated method stub
+		
+	}
+}

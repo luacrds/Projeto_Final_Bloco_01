@@ -1,0 +1,34 @@
+package model;
+
+public class Combo extends Produto {
+
+    private String descricao;
+
+    public Combo(int numero, String nome, double preco, int quantidade, String descricao) {
+        super(numero, nome, preco, quantidade);
+        this.descricao = descricao;
+    }
+
+    public String getDescricao() {
+        return descricao;
+    }
+
+    public void setDescricao(String descricao) {
+        this.descricao = descricao;
+    }
+
+    @Override
+    public void visualizar() {
+        System.out.println("\n================= DADOS DO COMBO =================");
+        System.out.println("Número: " + this.getNumero());
+        System.out.println("Combo: " + this.getNome());
+        System.out.println("Preço: R$ " + String.format("%.2f", this.getPreco()));
+        System.out.println("Quantidade disponível: " + this.getQuantidade());
+        System.out.println("Descrição: " + this.getDescricao());
+    }
+
+	public int getNumero() {
+		
+		return (Integer) null;
+	}
+}

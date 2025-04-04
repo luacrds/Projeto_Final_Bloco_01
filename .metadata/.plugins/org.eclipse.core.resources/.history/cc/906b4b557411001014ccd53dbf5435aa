@@ -1,0 +1,177 @@
+package menu;
+
+import java.util.ArrayList;
+import java.util.InputMismatchException;
+import java.util.Scanner;
+
+import controller.IngressoController;
+import model.Combo;
+import model.Ingresso;
+
+public class Menu {
+
+    static Scanner leia = new Scanner(System.in);
+
+    public static void main(String[] args) {
+
+        IngressoController ingressos = new IngressoController();
+        ArrayList<Combo> listaCombos = new ArrayList<>();
+        int contadorCombo = 0;
+
+        int opcao, numero, quantidade;
+        String nome;
+        double preco;
+
+        while (true) {
+
+            System.out.println("*****************************************************");
+            System.out.println("               OLDFILMES CINE                        ");
+            System.out.println("*****************************************************");
+            System.out.println("            1 - Listar todos os ingressos            ");
+            System.out.println("            2 - Buscar ingresso por número           ");
+            System.out.println("            3 - Cadastrar novo ingresso              ");
+            System.out.println("            4 - Atualizar ingresso                   ");
+            System.out.println("            5 - Deletar ingresso                     ");
+            System.out.println("-----------------------------------------------------");
+            System.out.println("            6 - Listar todos os combos               ");
+            System.out.println("            7 - Buscar combo por número              ");
+            System.out.println("            8 - Cadastrar novo combo                 ");
+            System.out.println("            9 - Atualizar combo                      ");
+            System.out.println("           10 - Deletar combo                        ");
+            System.out.println("-----------------------------------------------------");
+            System.out.println("           11 - Sair                                 ");
+            System.out.println("*****************************************************");
+            System.out.print("Entre com a opção desejada: ");
+
+            try {
+                opcao = leia.nextInt();
+            } catch (InputMismatchException e) {
+                System.out.println("\nDigite valores inteiros!");
+                leia.nextLine();
+                opcao = 0;
+            }
+
+            switch (opcao) {
+                case 1:
+                    ingressos.listarTodos();
+                    break;
+                case 2:
+                    System.out.print("\nDigite o número do ingresso: ");
+                    numero = leia.nextInt();
+                    ingressos.buscarPorNumero(numero);
+                    break;
+                case 3:
+                    System.out.print("\nDigite o nome do filme: ");
+                    leia.skip("\\R?");
+                    nome = leia.nextLine();
+                    System.out.print("Digite o preço do ingresso: ");
+                    preco = leia.nextDouble();
+                    System.out.print("Digite a quantidade disponível: ");
+                    quantidade = leia.nextInt();
+                    ingressos.cadastrar(new Ingresso(ingressos.gerarNumero(), nome, preco, quantidade));
+                    break;
+                case 4:
+                    System.out.print("\nDigite o número do ingresso: ");
+                    numero = leia.nextInt();
+                    System.out.print("Digite o nome do filme: ");
+                    leia.skip("\\R?");
+                    nome = leia.nextLine();
+                    System.out.print("Digite o preço do ingresso: ");
+                    preco = leia.nextDouble();
+                    System.out.print("Digite a quantidade disponível: ");
+                    quantidade = leia.nextInt();
+                    ingressos.atualizar(new Ingresso(numero, nome, preco, quantidade));
+                    break;
+                case 5:
+                    System.out.print("\nDigite o número do ingresso: ");
+                    numero = leia.nextInt();
+                    ingressos.deletar(numero);
+                    break;
+
+                case 6:
+                    for (Combo combo : listaCombos)
+                        combo.visualizar();
+                    break;
+                case 7:
+                    System.out.print("\nDigite o número do combo: ");
+                    numero = leia.nextInt();
+                    boolean encontrado = false;
+                    for (Combo combo : listaCombos) {
+                        if (combo.getNumero() == numero) {
+                            combo.visualizar();
+                            encontrado = true;
+                        }
+                    }
+                    if (!encontrado)
+                        System.out.println("\nCombo não encontrado!");
+                    break;
+                case 8:
+                    System.out.print("\nDigite a descrição do combo: ");
+                    leia.skip("\\R?");
+                    nome = leia.nextLine();
+                    System.out.print("Digite o preço do combo: ");
+                    preco = leia.nextDouble();
+                    System.out.print("Digite a quantidade disponível: ");
+                    quantidade = leia.nextInt();
+                    contadorCombo++;
+                    listaCombos.add(new Combo(contadorCombo, nome, preco, quantidade, nome));
+                    System.out.println("\nCombo cadastrado com sucesso!");
+                    break;
+                case 9:
+                    System.out.print("\nDigite o número do combo: ");
+                    numero = leia.nextInt();
+                    leia.nextLine();
+                    System.out.print("Digite a nova descrição do combo: ");
+                    nome = leia.nextLine();
+                    System.out.print("Digite o novo preço: ");
+                    preco = leia.nextDouble();
+                    System.out.print("Digite a nova quantidade: ");
+                    quantidade = leia.nextInt();
+                    encontrado = false;
+                    for (int i = 0; i < listaCombos.size(); i++) {
+                        if (listaCombos.get(i).getNumero() == numero) {
+                            listaCombos.set(i, new Combo(numero, nome, preco, quantidade));
+                            System.out.println("\nCombo atualizado com sucesso!");
+                            encontrado = true;
+                            break;
+                        }
+                    }
+                    if (!encontrado)
+                        System.out.println("\nCombo não encontrado!");
+                    break;
+                case 10:
+                    System.out.print("\nDigite o número do combo: ");
+                    numero = leia.nextInt();
+                    encontrado = false;
+                    for (int i = 0; i < listaCombos.size(); i++) {
+                        if (listaCombos.get(i).getNumero() == numero) {
+                            listaCombos.remove(i);
+                            System.out.println("\nCombo deletado com sucesso!");
+                            encontrado = true;
+                            break;
+                        }
+                    }
+                    if (!encontrado)
+                        System.out.println("\nCombo não encontrado!");
+                    break;
+
+                case 11:
+                    System.out.println("\nObrigado por visitar o OldFilmes Cine!");
+                    sobre();
+                    System.exit(0);
+                    break;
+
+                default:
+                    System.out.println("\nOpção inválida!");
+                    break;
+            }
+        }
+    }
+
+    public static void sobre() {
+        System.out.println("\n*********************************************************");
+        System.out.println("Projeto Desenvolvido por: Luana Cardoso da Silva");
+        System.out.println("OldFilmes Cine - Sua experiência nostálgica de cinema");
+        System.out.println("*********************************************************");
+    }
+}
